@@ -1,8 +1,16 @@
 package com.spring.demo.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
 
+    @Id
+    @Column(length = 64)
     private String ID;
+
     private String Name;
     private Integer Price;
     private Integer Stock;
