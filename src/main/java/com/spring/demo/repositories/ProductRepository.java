@@ -1,49 +1,14 @@
 package com.spring.demo.repositories;
 
 import com.spring.demo.models.Product;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+import java.util.Set;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+public interface ProductRepository extends CrudRepository<Product, String> {
 
-public class ProductRepository implements ObjectRepository<Product>{
-    private Map<String, Product> repo;
-
-    public void productRepository() {
-        this.repo = new HashMap<>();
-    }
-
-    @Override
-    public void store(Product prod){
-        repo.put(prod.getID(), prod);
-    }
-
-    @Override
-    public Product retrieve(String id){
-        return repo.get(id);
-    }
-
-    //public List<Map<String, Product>> getAll() {
-      //  return repo;
-    //}
-
-    @Override
-    public Product search(String name){
-        Collection<Product> prods = repo.values();
-        for(Product prod : prods) {
-            if(prod.getName().equalsIgnoreCase(name)){
-                return prod;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Product delete(String id){
-        Product p = repo.get(id);
-        this.repo.remove(id);
-        return p;
-    }
+    @Query(value = "select * from Product product where product.name like %?1")
+    Optional<Product> getProductByName(String productName);
 }
