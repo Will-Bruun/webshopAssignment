@@ -1,14 +1,9 @@
 package com.spring.demo.exceptions;
 
-public class ProductNotFoundException {
-    private final String message;
-
+public class ProductNotFoundException extends RuntimeException{
 
     public ProductNotFoundException(String message){
-        this.message = message;
+        super("Product with '" + message + "' not found.");
     }
 
-    public String getMessage() {
-        return message;
-    }
 }
