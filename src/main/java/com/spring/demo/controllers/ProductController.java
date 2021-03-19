@@ -10,39 +10,54 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/products")
 public class ProductController {
 
+    private final ProductRepository repo;
+
     @Autowired
-    private ProductRepository repo;
+    public ProductController(ProductRepository repo){
+        this.repo = repo;
+    }
 
     @RequestMapping("/rest")
     public String healthCheck() {
         return "OK";
     }
 
-    @GetMapping("/products/get/{id}")
-    public Product getProduct(@PathVariable(value = "id") String id){
-        return repo.retrieve(id);
+    @GetMapping("/products/get")
+    public Product getProduct(@RequestParam String id){
+        var userOpt = repo.findById(id);
+        return userOpt.orElseThrow(() -> new ProductNotFoundException("id" + id));
     }
 
-    @GetMapping("/products/search/{name}")
-    public Product searchProduct(@PathVariable("name") String name){
-        return repo.search(name);
+    @GetMapping("/products/searchByName")
+    public Product searchProduct(@RequestParam String name){
+        return repo.getProductByName(name).orElseThrow( () -> new ProductNotFoundException("name" + name));
     }
 
     @PostMapping("/products/create")
     public Product createProduct(@RequestBody Product prod){
-        repo.store(prod);
+        repo.save(prod);
         return prod;
     }
 
-    @DeleteMapping("/products/delete/{id}")
-    public Product deleteProduct(@PathVariable("id") String id){
-        return repo.delete(id);
+    @PutMapping("/product/edit")
+    public Product editProduct(@RequestBody Product prod){
+        repo.save(prod);
+        return prod;
     }
 
-    //@GetMapping("/products/getAll")
-    //public List<Product> getAllProducts(){
-      //  return repo.getAll();
-    //}
+    @DeleteMapping("/products/delete")
+    public Product deleteProduct(@RequestBody Product prod){
+        repo.deleteById(prod.getID());
+        return prod;
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ProductNotFoundException handleProductNotFound(ProductNotFoundException e) {
+        return new ProductNotFoundException(e.getMessage());
+    }
+
 }
