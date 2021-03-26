@@ -1,19 +1,23 @@
 package com.spring.demo.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 public class Shipment {
 
     @Id
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
     private String ID;
 
     private String companyName;
     private String info;
+    @ManyToOne(optional = false)
     private String manufacturerID;
+    @ManyToOne(optional = false)
     private String EmployeeID;
 
     public String getID() {

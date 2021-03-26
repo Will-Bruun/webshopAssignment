@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/products")
 public class ProductController {
@@ -25,32 +23,32 @@ public class ProductController {
         return "OK";
     }
 
-    @GetMapping("/products/get")
+    @GetMapping("/get")
     public Product getProduct(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new ProductNotFoundException("id" + id));
     }
 
-    @GetMapping("/products/searchByName")
+    @GetMapping("/searchByName")
     public Product searchProduct(@RequestParam String name){
         return repo.getProductByName(name).orElseThrow( () -> new ProductNotFoundException("name" + name));
     }
 
-    @PostMapping("/products/create")
+    @PostMapping("/create")
     public Product createProduct(@RequestBody Product prod){
         repo.save(prod);
         return prod;
     }
 
-    @PutMapping("/product/edit")
+    @PutMapping("/edit")
     public Product editProduct(@RequestBody Product prod){
         repo.save(prod);
         return prod;
     }
 
-    @DeleteMapping("/products/delete")
+    @DeleteMapping("/delete")
     public Product deleteProduct(@RequestBody Product prod){
-        repo.deleteById(prod.getID());
+        repo.deleteById(prod.getId());
         return prod;
     }
 

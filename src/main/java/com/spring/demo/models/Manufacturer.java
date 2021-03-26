@@ -1,14 +1,17 @@
 package com.spring.demo.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 public class Manufacturer {
 
     @Id
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private String ID;
 
     private String Name;

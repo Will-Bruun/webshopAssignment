@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private final EmployeeRepository repo;
@@ -19,25 +20,25 @@ public class EmployeeController {
         this.repo = repo;
     }
 
-    @GetMapping("/employee/get")
+    @GetMapping("/get")
     public Employees getEmployee(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    @GetMapping("/employee/index")
+    @GetMapping("/index")
     public Iterable<Employees> getAllEmployees(){
         var userOpt = repo.findAll();
         return userOpt;
     }
 
-    @PostMapping("/employee/post")
+    @PostMapping("/post")
     public Employees createEmployee(@RequestBody Employees emp){
         repo.save(emp);
         return emp;
     }
 
-    @PutMapping("/employee/edit")
+    @PutMapping("/edit")
     public Employees editEmployee(@RequestBody Employees emp){
         Optional<Employees> employeeInDb = repo.findById(emp.getId());
         if (employeeInDb.isPresent()){
@@ -48,7 +49,7 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("/employee/delete")
+    @DeleteMapping("/delete")
     public Employees deleteEmployee(@RequestBody Employees emp){
         repo.deleteById(emp.getId());
         return emp;

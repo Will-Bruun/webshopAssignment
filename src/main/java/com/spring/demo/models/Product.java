@@ -1,26 +1,30 @@
 package com.spring.demo.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 public class Product {
 
     @Id
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
-    private String ID;
+    private String id;
 
     private String Name;
     private Integer Price;
     private Integer Stock;
+    @ManyToOne
+    private String manufacturerId;
 
-    public String getID(){
-        return ID;
+    public String getId(){
+        return id;
     }
 
-    public void setID(String ID){
-        this.ID = ID;
+    public void setId(String id){
+        this.id = id;
     }
 
     public String getName(){
@@ -29,6 +33,10 @@ public class Product {
 
     public void setName(String name){
         this.Name = name;
+    }
+
+    public String getManufacturerId() {
+        return manufacturerId;
     }
 
     public Integer getPrice(){
@@ -45,5 +53,9 @@ public class Product {
 
     public void setStock(Integer stock){
         this.Stock = stock;
+    }
+
+    public void setManufacturerId(String manufacturerId) {
+        this.manufacturerId = manufacturerId;
     }
 }

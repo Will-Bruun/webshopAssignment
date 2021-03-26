@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/shipment")
 public class ShipmentController {
 
     private final ShipmentRepository repo;
@@ -19,25 +20,25 @@ public class ShipmentController {
         this.repo = repo;
     }
 
-    @GetMapping("/shipment/get")
+    @GetMapping("/get")
     public Shipment getShipment(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new ShipmentNotFoundException(id));
     }
 
-    @GetMapping("/shipment/index")
+    @GetMapping("/index")
     public Iterable<Shipment> getAllShipments(){
         var userOpt = repo.findAll();
         return userOpt;
     }
 
-    @PostMapping("/shipment/create")
+    @PostMapping("/create")
     public Shipment createShipment(@RequestBody Shipment ship){
         repo.save(ship);
         return ship;
     }
 
-    @PutMapping("/shipment/edit")
+    @PutMapping("/edit")
     public Shipment editShipment(@RequestBody Shipment ship){
         Optional<Shipment> shipmentInDb = repo.findById(ship.getID());
         if (shipmentInDb.isPresent()){
@@ -49,7 +50,7 @@ public class ShipmentController {
 
     }
 
-    @DeleteMapping("/shipment/delete")
+    @DeleteMapping("/delete")
     public Shipment deleteShipment(@RequestBody Shipment ship){
         repo.deleteById(ship.getID());
         return ship;

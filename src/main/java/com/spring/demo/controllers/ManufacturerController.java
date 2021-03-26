@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/manufacturer")
 public class ManufacturerController {
 
     private final ManufacturerRepository repo;
@@ -21,25 +22,25 @@ public class ManufacturerController {
         this.repo = repo;
     }
 
-    @GetMapping("/manufacturer/get")
+    @GetMapping("/get")
     public Manufacturer getManufacturer(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new ManufacturerNotFoundException(id));
     }
 
-    @GetMapping("/manufacturer/index")
+    @GetMapping("/index")
     public Iterable<Manufacturer> getAllManufacturer(){
         var userOpt = repo.findAll();
         return userOpt;
     }
 
-    @PostMapping("/manufacturer/create")
+    @PostMapping("/create")
     public Manufacturer createManufacturer(@RequestBody Manufacturer man){
         repo.save(man);
         return man;
     }
 
-    @PutMapping("/manufacturer/edit")
+    @PutMapping("/edit")
     public Manufacturer editManufacturer(@RequestBody Manufacturer man){
         Optional<Manufacturer> manufacturerInDb = repo.findById(man.getID());
         if (manufacturerInDb.isPresent()){
@@ -51,7 +52,7 @@ public class ManufacturerController {
 
     }
 
-    @DeleteMapping("/manufacturer/delete")
+    @DeleteMapping("/delete")
     public Manufacturer deleteManufacturer(@RequestBody Manufacturer man){
         repo.deleteById(man.getID());
         return man;
