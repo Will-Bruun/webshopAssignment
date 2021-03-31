@@ -1,14 +1,19 @@
 package com.spring.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "product")
 public class Product {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
     private String id;
@@ -17,7 +22,9 @@ public class Product {
     private Integer Price;
     private Integer Stock;
     @ManyToOne
-    private String manufacturerId;
+    private Manufacturer manufacturer;
+    @ManyToMany()
+    private List<Tags> tags;
 
     public String getId(){
         return id;
@@ -35,8 +42,16 @@ public class Product {
         this.Name = name;
     }
 
-    public String getManufacturerId() {
-        return manufacturerId;
+    public void setTags(List tags) {
+        this.tags = tags;
+    }
+
+    public List getTags() {
+        return tags;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
     }
 
     public Integer getPrice(){
@@ -55,7 +70,7 @@ public class Product {
         this.Stock = stock;
     }
 
-    public void setManufacturerId(String manufacturerId) {
-        this.manufacturerId = manufacturerId;
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

@@ -3,21 +3,23 @@ package com.spring.demo.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "tag")
 public class Tags {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
     private String id;
 
     private String tag;
+
+    @ManyToMany(mappedBy = "tags")
+    private List<Product> products;
 
     public String getId() {
         return id;
@@ -33,5 +35,13 @@ public class Tags {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

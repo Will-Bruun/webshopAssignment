@@ -1,23 +1,27 @@
 package com.spring.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "deliveries")
 public class Deliveries {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
     private String id;
 
     private String deliveryAddress;
-    private String shoppingCartId;
+    @ManyToOne
+    private ShoppingCart shoppingCart;
+
+    @OneToOne(mappedBy = "delivery")
+    @JsonIgnore
+    private Payments payment;
 
     public String getId() {
         return id;
@@ -27,8 +31,8 @@ public class Deliveries {
         return deliveryAddress;
     }
 
-    public String getShoppingCartId() {
-        return shoppingCartId;
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
     public void setId(String id) {
@@ -39,7 +43,15 @@ public class Deliveries {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public void setShoppingCartId(String shoppingCartId) {
-        this.shoppingCartId = shoppingCartId;
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public Payments getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payments payment) {
+        this.payment = payment;
     }
 }

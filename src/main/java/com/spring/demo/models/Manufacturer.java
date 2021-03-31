@@ -1,18 +1,28 @@
 package com.spring.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "manufacturer")
 public class Manufacturer {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.UUIDGenerator")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
+    private String id;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private String ID;
+    private List<Product> products;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Shipment shipment;
 
     private String Name;
     private String Info;
@@ -21,8 +31,12 @@ public class Manufacturer {
         return Name;
     }
 
-    public String getID(){
-        return ID;
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public String getInfo(){
@@ -33,11 +47,24 @@ public class Manufacturer {
         this.Name = name;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
 
     public void setInfo(String info) {
         Info = info;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
     }
 }

@@ -1,9 +1,13 @@
 package com.spring.demo.models;
 
+import javax.persistence.Column;
+import java.beans.Transient;
+
 public class Humans {
 
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String phoneNumber;
 
@@ -22,6 +26,7 @@ public class Humans {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -36,6 +41,17 @@ public class Humans {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Transient
+    public String getName(){
+        StringBuilder name = new StringBuilder();
+
+        name.append(firstName);
+        name.append(" ");
+        name.append(lastName);
+
+        return name.toString();
     }
 
 }

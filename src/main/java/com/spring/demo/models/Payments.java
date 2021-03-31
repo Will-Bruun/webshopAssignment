@@ -3,22 +3,24 @@ package com.spring.demo.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "payment")
 public class Payments {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org-hibernateUUIDGenerator")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @GeneratedValue(generator = "uuid2")
     @Column(length = 64)
     private String id;
 
     private String deliveryAdress;
-    private String cartId;
+    @OneToOne
+    private Deliveries delivery;
+    @OneToOne
+    private Shipment shipment;
+
 
     public void setId(String id) {
         this.id = id;
@@ -28,8 +30,8 @@ public class Payments {
         this.deliveryAdress = deliveryAdress;
     }
 
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
+    public void setDelivery(Deliveries delivery) {
+        this.delivery = delivery;
     }
 
     public String getId() {
@@ -40,7 +42,15 @@ public class Payments {
         return deliveryAdress;
     }
 
-    public String getCartId() {
-        return cartId;
+    public Deliveries getDelivery() {
+        return delivery;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
     }
 }
