@@ -19,7 +19,7 @@ public class Product {
     private String id;
 
     private String Name;
-    private Integer Price;
+    private Double Price;
     private Integer Stock;
     @ManyToOne
     private Manufacturer manufacturer;
@@ -50,15 +50,23 @@ public class Product {
         return tags;
     }
 
+    public void appendTag(Tags tag){
+        this.tags.add(tag);
+    }
+
+    public void removeTag(Tags tag) {
+        this.tags.remove(tag);
+    }
+
     public Manufacturer getManufacturer() {
         return manufacturer;
     }
 
-    public Integer getPrice(){
+    public Double getPrice(){
         return Price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.Price = price;
     }
 

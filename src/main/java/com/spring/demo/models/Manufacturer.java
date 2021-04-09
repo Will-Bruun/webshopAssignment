@@ -22,7 +22,7 @@ public class Manufacturer {
     private List<Product> products;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private Shipment shipment;
+    private List<Shipment> shipment;
 
     private String Name;
     private String Info;
@@ -60,11 +60,11 @@ public class Manufacturer {
         this.id = id;
     }
 
-    public Shipment getShipment() {
+    public List<Shipment> getShipment() {
         return shipment;
     }
 
-    public void setShipment(Shipment shipment) {
+    public void setShipment(List<Shipment> shipment) {
         this.shipment = shipment;
     }
 }

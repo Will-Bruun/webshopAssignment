@@ -61,4 +61,22 @@ public class ShoppingCart {
     public void setDeliveries(List<Deliveries> deliveries) {
         this.deliveries = deliveries;
     }
+
+    public void appendDelivery(Deliveries delivery){
+        this.deliveries.add(delivery);
+    }
+
+    public void appendItemToProducts(Product product){
+        this.products.add(product);
+    }
+
+    public void removeItemFromProducts(Product product){
+        this.products.remove(product);
+    }
+
+    public void removeAll(){
+        List<Product> list = this.getProducts();
+        this.products.removeAll(list);
+    }
+
 }

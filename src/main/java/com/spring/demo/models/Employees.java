@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -21,7 +22,7 @@ public class Employees extends Humans {
     private String field;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private Shipment shipment;
+    private List<Shipment> shipment;
 
     public String getField() {
         return field;
@@ -39,11 +40,11 @@ public class Employees extends Humans {
         this.id = id;
     }
 
-    public Shipment getShipment() {
+    public List<Shipment> getShipment() {
         return shipment;
     }
 
-    public void setShipment(Shipment shipment) {
+    public void setShipment(List<Shipment> shipment) {
         this.shipment = shipment;
     }
 }

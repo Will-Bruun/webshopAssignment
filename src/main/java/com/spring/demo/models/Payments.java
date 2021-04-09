@@ -4,6 +4,8 @@ package com.spring.demo.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "payment")
@@ -15,19 +17,19 @@ public class Payments {
     @Column(length = 64)
     private String id;
 
-    private String deliveryAdress;
+    private String info;
     @OneToOne
     private Deliveries delivery;
     @OneToOne
     private Shipment shipment;
-
+    private LocalDateTime date;
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setDeliveryAdress(String deliveryAdress) {
-        this.deliveryAdress = deliveryAdress;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public void setDelivery(Deliveries delivery) {
@@ -38,8 +40,8 @@ public class Payments {
         return id;
     }
 
-    public String getDeliveryAdress() {
-        return deliveryAdress;
+    public String getInfo() {
+        return info;
     }
 
     public Deliveries getDelivery() {
@@ -52,5 +54,13 @@ public class Payments {
 
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }
