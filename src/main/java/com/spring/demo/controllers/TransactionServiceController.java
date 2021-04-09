@@ -3,12 +3,15 @@ package com.spring.demo.controllers;
 import com.spring.demo.models.Payments;
 import com.spring.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/transactions")
 public class TransactionServiceController {
 
     //With this one it is simple, we want to have two methods in here. One for allowing the user to see their transaction history.
@@ -28,6 +31,7 @@ public class TransactionServiceController {
         this.cartRepo = cartRepo;
     }
 
+    @GetMapping("/userHistory")
     public List<Payments> userTransactionHistory(@RequestParam String id){
         var cart = cartRepo.findById(id).get();
         var deliveries = cart.getDeliveries();
@@ -35,6 +39,7 @@ public class TransactionServiceController {
         return pays;
     }
 
+    @GetMapping("/employeeHistory")
     public List<Payments> employeeTransactionHistory(@RequestParam String id){
         var emp = empRepo.findById(id).get();
         var shipments = emp.getShipment();
