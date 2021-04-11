@@ -2,9 +2,8 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
 import com.spring.demo.exceptions.UserNotFoundException;
-import com.spring.demo.models.Employees;
 import com.spring.demo.repositories.UserRepository;
-import com.spring.demo.models.Users;
+import com.spring.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserRepository repo;
@@ -23,26 +22,26 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public Users getUser(@RequestParam String id){
+    public User getUser(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @GetMapping("/index")
-    public Iterable<Users> getAllUsers(){
+    public Iterable<User> getAllUsers(){
         var userOpt = repo.findAll();
         return userOpt;
     }
 
     @PostMapping("/post")
-    public Users postUser(@RequestBody Users user){
+    public User postUser(@RequestBody User user){
         repo.save(user);
         return user;
     }
 
     @PutMapping("/edit")
-    public Users editUser(@RequestBody Users user){
-        Optional<Users> userInDb = repo.findById(user.getId());
+    public User editUser(@RequestBody User user){
+        Optional<User> userInDb = repo.findById(user.getId());
         if (userInDb.isPresent()){
             repo.save(user);
             return user;
@@ -52,7 +51,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public Users deleteUser(@RequestBody Users user){
+    public User deleteUser(@RequestBody User user){
         repo.delete(user);
         return user;
     }

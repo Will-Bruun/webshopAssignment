@@ -42,19 +42,19 @@ public class ManufacturerController {
 
     @PutMapping("/edit")
     public Manufacturer editManufacturer(@RequestBody Manufacturer man){
-        Optional<Manufacturer> manufacturerInDb = repo.findById(man.getID());
+        Optional<Manufacturer> manufacturerInDb = repo.findById(man.getId());
         if (manufacturerInDb.isPresent()){
             repo.save(man);
             return man;
         } else {
-            throw new ManufacturerNotFoundException(man.getID());
+            throw new ManufacturerNotFoundException(man.getId());
         }
 
     }
 
     @DeleteMapping("/delete")
     public Manufacturer deleteManufacturer(@RequestBody Manufacturer man){
-        repo.deleteById(man.getID());
+        repo.deleteById(man.getId());
         return man;
     }
 

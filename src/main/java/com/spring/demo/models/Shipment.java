@@ -25,11 +25,11 @@ public class Shipment {
     private Manufacturer manufacturer;
 
     @ManyToOne(optional = false)
-    private Employees employee;
+    private Employee employee;
 
     @OneToOne(mappedBy = "shipment")
     @JsonIgnore
-    private Payments payment;
+    private Payment payment;
 
     public String getId() {
         return id;
@@ -63,19 +63,19 @@ public class Shipment {
         this.manufacturer = manufacturer;
     }
 
-    public Employees getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employees employee) {
+    public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
-    public Payments getPayment() {
+    public Payment getPayment() {
         return payment;
     }
 
-    public void setPayment(Payments payment) {
+    public void setPayment(Payment payment) {
         this.payment = payment;
     }
 }

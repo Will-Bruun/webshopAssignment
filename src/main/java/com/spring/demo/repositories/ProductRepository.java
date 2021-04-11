@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ProductRepository extends CrudRepository<Product, String> {
 
-    @Query(value = "select * from Product product where product.name like %?1")
+    @Query(value = "select products from Product products where products.Name like %?1")
     Optional<Product> getProductByName(String productName);
 }

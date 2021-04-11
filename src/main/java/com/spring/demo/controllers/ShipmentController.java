@@ -40,19 +40,19 @@ public class ShipmentController {
 
     @PutMapping("/edit")
     public Shipment editShipment(@RequestBody Shipment ship){
-        Optional<Shipment> shipmentInDb = repo.findById(ship.getID());
+        Optional<Shipment> shipmentInDb = repo.findById(ship.getId());
         if (shipmentInDb.isPresent()){
             repo.save(ship);
             return ship;
         } else {
-            throw new ShipmentNotFoundException(ship.getID());
+            throw new ShipmentNotFoundException(ship.getId());
         }
 
     }
 
     @DeleteMapping("/delete")
     public Shipment deleteShipment(@RequestBody Shipment ship){
-        repo.deleteById(ship.getID());
+        repo.deleteById(ship.getId());
         return ship;
     }
 

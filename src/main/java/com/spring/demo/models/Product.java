@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -24,7 +24,7 @@ public class Product {
     @ManyToOne
     private Manufacturer manufacturer;
     @ManyToMany()
-    private List<Tags> tags;
+    private List<Tag> tags;
 
     public String getId(){
         return id;
@@ -50,11 +50,11 @@ public class Product {
         return tags;
     }
 
-    public void appendTag(Tags tag){
+    public void appendTag(Tag tag){
         this.tags.add(tag);
     }
 
-    public void removeTag(Tags tag) {
+    public void removeTag(Tag tag) {
         this.tags.remove(tag);
     }
 

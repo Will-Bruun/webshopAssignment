@@ -1,10 +1,8 @@
 package com.spring.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,13 +16,13 @@ public class ShoppingCart {
     private String id;
 
     @OneToOne
-    private Users user;
+    private User user;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Product> products;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Deliveries> deliveries;
+    private List<Delivery> deliveries;
 
     public String getId() {
         return id;
@@ -34,7 +32,7 @@ public class ShoppingCart {
         return user.getId();
     }
 
-    public Users getUser(){
+    public User getUser(){
         return user;
     }
 
@@ -46,7 +44,7 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -54,15 +52,15 @@ public class ShoppingCart {
         this.products = products;
     }
 
-    public List<Deliveries> getDeliveries() {
+    public List<Delivery> getDeliveries() {
         return deliveries;
     }
 
-    public void setDeliveries(List<Deliveries> deliveries) {
+    public void setDeliveries(List<Delivery> deliveries) {
         this.deliveries = deliveries;
     }
 
-    public void appendDelivery(Deliveries delivery){
+    public void appendDelivery(Delivery delivery){
         this.deliveries.add(delivery);
     }
 
