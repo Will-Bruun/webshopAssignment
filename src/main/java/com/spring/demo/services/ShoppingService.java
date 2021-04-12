@@ -3,6 +3,8 @@ package com.spring.demo.services;
 import com.spring.demo.models.Delivery;
 import com.spring.demo.models.ShoppingCart;
 
+import java.util.List;
+
 public class ShoppingService {
 
     public static Delivery createDelivery(String adress, ShoppingCart cart){
@@ -14,7 +16,9 @@ public class ShoppingService {
     }
 
     public static ShoppingCart connectDelivery(ShoppingCart cart, Delivery deliv){
-        cart.appendDelivery(deliv);
+        List<Delivery> delivs = cart.getDeliveries();
+        delivs.add(deliv);
+        cart.setDeliveries(delivs);
         return cart;
     }
 }
