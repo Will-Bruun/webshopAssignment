@@ -5,6 +5,7 @@ import com.spring.demo.models.Delivery;
 import com.spring.demo.models.Payment;
 import com.spring.demo.models.Product;
 import com.spring.demo.models.ShoppingCart;
+import com.spring.demo.services.CartService;
 import com.spring.demo.services.PaymentService;
 import com.spring.demo.services.ShoppingService;
 import com.spring.demo.repositories.DeliveryRepository;
@@ -38,7 +39,7 @@ public class ShoppingController {
             var userOpt = cartRepo.findById(id);
             if(userOpt.isPresent()){
                 var cart = userOpt.get();
-                cart.appendItemToProducts(prod);
+                cart = CartService.appendProduct(prod, cart);
 
                 cartRepo.save(cart);
                 return cart;
@@ -59,7 +60,7 @@ public class ShoppingController {
             var userOpt = cartRepo.findById(id);
             if(userOpt.isPresent()){
                 var cart = userOpt.get();
-                cart.removeItemFromProducts(prod);
+                cart = CartService.removeProduct(prod, cart);
 
                 cartRepo.save(cart);
                 return cart;
@@ -96,7 +97,7 @@ public class ShoppingController {
         if(userOpt.isPresent()){
             var cart = userOpt.get();
             List<Product> list = cart.getProducts();
-            cart.removeAll();
+            cart = CartService.removeAllProducts(cart);
 
             cartRepo.save(cart);
             return list;
