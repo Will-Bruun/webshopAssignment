@@ -79,11 +79,7 @@ public class ShoppingController {
             var userOpt = cartRepo.findById(id);
             if(userOpt.isPresent()){
                 var cart = userOpt.get();
-                List<Product> prods = cart.getProducts();
-
-                for(Product prod : prods){
-                    sum += prod.getPrice();
-                }
+                sum = ShoppingService.summarizeCost(cart);
             }
             return sum;
         } catch(Exception e){
