@@ -33,6 +33,18 @@ public class UserController {
         return userOpt;
     }
 
+    @GetMapping("/searchByName")
+    public User searchUser(@RequestParam String name){
+        return repo.getUserByName(name).orElseThrow( () -> new UserNotFoundException("name" + name));
+    }
+
+    @GetMapping("/getName")
+    public String getNameById(@RequestParam String id){
+        var userOpt = repo.findById(id);
+        User user = userOpt.get();
+        return user.getName();
+    }
+
     @PostMapping("/post")
     public User postUser(@RequestBody User user){
         repo.save(user);

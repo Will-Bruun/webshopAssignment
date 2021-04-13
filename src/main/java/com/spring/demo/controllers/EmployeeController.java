@@ -2,6 +2,7 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
 import com.spring.demo.models.Employee;
+import com.spring.demo.models.User;
 import com.spring.demo.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,18 @@ public class EmployeeController {
     public Iterable<Employee> getAllEmployees(){
         var userOpt = repo.findAll();
         return userOpt;
+    }
+
+    @GetMapping("/searchByName")
+    public Employee searchEmployee(@RequestParam String name){
+        return repo.getEmployeeByName(name).orElseThrow( () -> new EmployeeNotFoundException("name" + name));
+    }
+
+    @GetMapping("/getName")
+    public String getNameById(@RequestParam String id){
+        var userOpt = repo.findById(id);
+        Employee employee = userOpt.get();
+        return employee.getName();
     }
 
     @PostMapping("/post")
