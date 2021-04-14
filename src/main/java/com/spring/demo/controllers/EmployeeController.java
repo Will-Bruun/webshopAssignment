@@ -1,8 +1,7 @@
 package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
-
-import com.spring.demo.models.Employees;
+import com.spring.demo.models.Employee;
 import com.spring.demo.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,19 +32,7 @@ public class EmployeeController {
         return userOpt;
     }
 
-    @GetMapping("/searchByName")
-    public Employee searchEmployee(@RequestParam String name){
-        return repo.getEmployeeByName(name).orElseThrow( () -> new EmployeeNotFoundException("name" + name));
-    }
-
-    @GetMapping("/getName")
-    public String getNameById(@RequestParam String id){
-        var userOpt = repo.findById(id);
-        Employee employee = userOpt.get();
-        return employee.getName();
-    }
-
-    @PostMapping("/post")
+    @PostMapping("/create")
     public Employee createEmployee(@RequestBody Employee emp){
         repo.save(emp);
         return emp;
@@ -54,8 +41,6 @@ public class EmployeeController {
     @PutMapping("/edit")
     public Employee editEmployee(@RequestBody Employee emp){
         Optional<Employee> employeeInDb = repo.findById(emp.getId());
-    public Employees editEmployee(@RequestBody Employees emp){
-        Optional<Employees> employeeInDb = repo.findById(emp.getId());
         if (employeeInDb.isPresent()){
             repo.save(emp);
             return emp;
@@ -66,7 +51,6 @@ public class EmployeeController {
 
     @DeleteMapping("/delete")
     public Employee deleteEmployee(@RequestBody Employee emp){
-
         repo.deleteById(emp.getId());
         return emp;
     }

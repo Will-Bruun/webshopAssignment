@@ -25,7 +25,7 @@ public class CartController {
         return userOpt.orElseThrow(() -> new CartNotFoundException(id));
     }
 
-    @PostMapping("/post")
+    @PostMapping("/create")
     public ShoppingCart createShoppingCart(@RequestBody ShoppingCart cart){
         repo.save(cart);
         return cart;
