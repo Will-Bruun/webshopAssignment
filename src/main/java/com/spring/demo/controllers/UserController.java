@@ -2,10 +2,11 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
 import com.spring.demo.exceptions.UserNotFoundException;
+
 import com.spring.demo.models.ShoppingCart;
 import com.spring.demo.repositories.ShoppingCartRepository;
 import com.spring.demo.repositories.UserRepository;
-import com.spring.demo.models.Users;
+import com.spring.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,19 +27,32 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public Users getUser(@RequestParam String id){
+    public User getUser(@RequestParam String id){
         var userOpt = userRepo.findById(id);
         return userOpt.orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @GetMapping("/index")
-    public Iterable<Users> getAllUsers(){
-        var userOpt = userRepo.findAll();
+    public Iterable<User> getAllUsers(){
+        var userOpt = repo.findAll();
         return userOpt;
     }
 
+    @GetMapping("/searchByName")
+    public User searchUser(@RequestParam String name){
+        return repo.getUserByName(name).orElseThrow( () -> new UserNotFoundException("name" + name));
+    }
+
+    @GetMapping("/getName")
+    public String getNameById(@RequestParam String id){
+        var userOpt = repo.findById(id);
+        User user = userOpt.get();
+        return user.getName();
+    }
+
     @PostMapping("/post")
-    public Users postUser(@RequestBody Users user, @RequestBody ShoppingCart cart){
+    public User postUser(@RequestBody User user){
+        repo.save(user);
         user.setCart(cart);
         cart.setUser(user);
         userRepo.save(user);
@@ -47,10 +61,10 @@ public class UserController {
     }
 
     @PutMapping("/edit")
-    public Users editUser(@RequestBody Users user){
-        Optional<Users> userInDb = userRepo.findById(user.getId());
+    public User editUser(@RequestBody User user){
+        Optional<User> userInDb = repo.findById(user.getId());
         if (userInDb.isPresent()){
-            userRepo.save(user);
+            repo.save(user);
             return user;
         } else {
             throw new EmployeeNotFoundException(user.getId());
@@ -58,8 +72,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public Users deleteUser(@RequestBody Users user){
-        userRepo.delete(user);
+    public User deleteUser(@RequestBody User user){
+        repo.delete(user);
         return user;
     }
 

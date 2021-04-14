@@ -1,6 +1,7 @@
 package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
+
 import com.spring.demo.models.Employees;
 import com.spring.demo.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +22,38 @@ public class EmployeeController {
     }
 
     @GetMapping("/get")
-    public Employees getEmployee(@RequestParam String id){
+    public Employee getEmployee(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @GetMapping("/index")
-    public Iterable<Employees> getAllEmployees(){
+    public Iterable<Employee> getAllEmployees(){
         var userOpt = repo.findAll();
         return userOpt;
     }
 
+    @GetMapping("/searchByName")
+    public Employee searchEmployee(@RequestParam String name){
+        return repo.getEmployeeByName(name).orElseThrow( () -> new EmployeeNotFoundException("name" + name));
+    }
+
+    @GetMapping("/getName")
+    public String getNameById(@RequestParam String id){
+        var userOpt = repo.findById(id);
+        Employee employee = userOpt.get();
+        return employee.getName();
+    }
+
     @PostMapping("/post")
-    public Employees createEmployee(@RequestBody Employees emp){
+    public Employee createEmployee(@RequestBody Employee emp){
         repo.save(emp);
         return emp;
     }
 
     @PutMapping("/edit")
+    public Employee editEmployee(@RequestBody Employee emp){
+        Optional<Employee> employeeInDb = repo.findById(emp.getId());
     public Employees editEmployee(@RequestBody Employees emp){
         Optional<Employees> employeeInDb = repo.findById(emp.getId());
         if (employeeInDb.isPresent()){
@@ -50,7 +65,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete")
-    public Employees deleteEmployee(@RequestBody Employees emp){
+    public Employee deleteEmployee(@RequestBody Employee emp){
+
         repo.deleteById(emp.getId());
         return emp;
     }

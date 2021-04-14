@@ -2,11 +2,14 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.ProductNotFoundException;
 import com.spring.demo.models.Product;
+
 import com.spring.demo.models.Tags;
 import com.spring.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -31,8 +34,13 @@ public class ProductController {
     }
 
     @GetMapping("/searchByName")
-    public Product searchProduct(@RequestParam String name){
-        return repo.getProductByName(name).orElseThrow( () -> new ProductNotFoundException("name" + name));
+    public List <Product> searchProduct(@RequestParam String name) {
+        try {
+            return repo.getProductByName(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ProductNotFoundException("name" + name);
+        }
     }
 
     @PostMapping("/create")
