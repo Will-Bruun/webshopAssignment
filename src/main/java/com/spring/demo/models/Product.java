@@ -1,6 +1,7 @@
 package com.spring.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -24,6 +25,7 @@ public class Product {
     @ManyToOne
     private Manufacturer manufacturer;
     @ManyToMany()
+    @JsonIgnore
     private List<Tag> tags;
 
     public String getId(){

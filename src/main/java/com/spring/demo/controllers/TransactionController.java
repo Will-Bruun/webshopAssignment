@@ -25,7 +25,7 @@ public class TransactionController {
         this.cartRepo = cartRepo;
     }
 
-    @GetMapping("/userHistory")
+   /* @GetMapping("/userHistory")
     public List<Payment> userTransactionHistory(@RequestParam String id){
         var cart = cartRepo.findById(id).get();
         var deliveries = cart.getDeliveries();
@@ -40,5 +40,5 @@ public class TransactionController {
         var pays = payRepo.getPaymentsFromShipments(shipments);
         return pays;
     }
-
+*/
 }
