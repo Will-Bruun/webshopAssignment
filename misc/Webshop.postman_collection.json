@@ -1,0 +1,577 @@
+{
+	"info": {
+		"_postman_id": "c1d93d9a-5f96-45a9-93ab-131432d38bae",
+		"name": "Webshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "addProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"manufacturer\": null,\r\n    \"name\": \"Spiderman\",\r\n    \"stock\": 3,\r\n    \"price\": 45.0\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/products/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findProductById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/products/get?id=44cc7cc3-9198-4f76-8ede-f43325451be9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "44cc7cc3-9198-4f76-8ede-f43325451be9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchProductByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/products/searchByName?name=spiderman",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"searchByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "spiderman"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/rest",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"rest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editProduct",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"59ea2d8b-35e7-4cfb-9d9d-ceaa51cb429f\",\r\n    \"name\": \"superman2\",\r\n    \"price\": 5,\r\n    \"stock\": 1\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/products/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProductById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"891f0ff6-147b-4a92-ab14-e3f0ca88f3d9\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/products/delete?=",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/products/index",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"index"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "findUserById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/user/get?id=d3ec8fdb-cbf6-48df-b732-1a77a3c9693c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "d3ec8fdb-cbf6-48df-b732-1a77a3c9693c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"william\",\r\n    \"lastName\": \"bruun\",\r\n    \"email\": \"123123@mail.com\",\r\n    \"phoneNumber\": \"060600\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNameById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/getName?id=d3ec8fdb-cbf6-48df-b732-1a77a3c9693c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"getName"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "d3ec8fdb-cbf6-48df-b732-1a77a3c9693c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchUserByfirstName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/user/searchByName?name=william",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"searchByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "william"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" :\"52e8d9ad-3ab9-47dc-befe-01e13bc4f89f\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/index",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"index"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "addEmployee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"den\",\r\n    \"lastName\": \"pet\",\r\n    \"email\": \"1233@mail.com\",\r\n    \"phoneNumber\": \"07000234000\",\r\n    \"field\": null,\r\n    \"shipment\": null\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/employee/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findEmployeeById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/employee/get?id=d41a2fd0-0418-40d6-9582-5b5a51f5311b",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "d41a2fd0-0418-40d6-9582-5b5a51f5311b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNameById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/employee/getName?id=721ab26b-e064-44d8-9efc-b7ef45b87c47",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"getName"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "721ab26b-e064-44d8-9efc-b7ef45b87c47"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchEmployeeByFirstName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/employee/searchByName?name=denko",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"searchByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "denko"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editEmployee",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"f717fde4-1c7b-4fd9-82ee-e9299c34a47f\",\r\n    \"firstName\": \"deneee\",\r\n    \"lastName\": \"pettttt\",\r\n    \"email\": \"1233@mail.com\",\r\n    \"phoneNumber\": \"07000234000\",\r\n    \"field\": null\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/employee/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteEmployeeById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" :\"f717fde4-1c7b-4fd9-82ee-e9299c34a47f\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/employee/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
