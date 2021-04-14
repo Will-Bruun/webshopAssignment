@@ -2,8 +2,7 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
 import com.spring.demo.exceptions.TagNotFoundException;
-import com.spring.demo.models.Employees;
-import com.spring.demo.models.Tags;
+import com.spring.demo.models.Tag;
 import com.spring.demo.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,26 +21,26 @@ public class TagController {
     }
 
     @GetMapping("/get")
-    public Tags getTag(@RequestParam String id){
+    public Tag getTag(@RequestParam String id){
         var userOpt = repo.findById(id);
         return userOpt.orElseThrow(() -> new TagNotFoundException(id));
     }
 
     @GetMapping("/index")
-    public Iterable<Tags> getAllTags(){
+    public Iterable<Tag> getAllTags(){
         var userOpt = repo.findAll();
         return userOpt;
     }
 
-    @PostMapping("/post")
-    public Tags createTags(@RequestBody Tags tag){
+    @PostMapping("/create")
+    public Tag createTags(@RequestBody Tag tag){
         repo.save(tag);
         return tag;
     }
 
     @PutMapping("/edit")
-    public Tags editEmployee(@RequestBody Tags tag){
-        Optional<Tags> tagInDb = repo.findById(tag.getId());
+    public Tag editEmployee(@RequestBody Tag tag){
+        Optional<Tag> tagInDb = repo.findById(tag.getId());
         if (tagInDb.isPresent()){
             repo.save(tag);
             return tag;
@@ -51,7 +50,7 @@ public class TagController {
     }
 
     @DeleteMapping("/delete")
-    public Tags deleteTag(@RequestBody Tags tag){
+    public Tag deleteTag(@RequestBody Tag tag){
         repo.deleteById(tag.getId());
         return tag;
     }
