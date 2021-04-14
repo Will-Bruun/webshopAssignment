@@ -2,6 +2,9 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
 import com.spring.demo.exceptions.UserNotFoundException;
+
+import com.spring.demo.models.ShoppingCart;
+import com.spring.demo.repositories.ShoppingCartRepository;
 import com.spring.demo.repositories.UserRepository;
 import com.spring.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +14,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
-    private final UserRepository repo;
+    private final UserRepository userRepo;
+    private final ShoppingCartRepository cartRepo;
 
     @Autowired
-    public UserController(UserRepository repo){
-        this.repo = repo;
+    public UserController(UserRepository userRepo, ShoppingCartRepository cartRepo){
+        this.userRepo = userRepo;
+        this.cartRepo = cartRepo;
     }
 
     @GetMapping("/get")
     public User getUser(@RequestParam String id){
-        var userOpt = repo.findById(id);
+        var userOpt = userRepo.findById(id);
         return userOpt.orElseThrow(() -> new UserNotFoundException(id));
     }
 
@@ -48,6 +53,10 @@ public class UserController {
     @PostMapping("/post")
     public User postUser(@RequestBody User user){
         repo.save(user);
+        user.setCart(cart);
+        cart.setUser(user);
+        userRepo.save(user);
+        cartRepo.save(cart);
         return user;
     }
 

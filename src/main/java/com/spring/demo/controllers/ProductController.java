@@ -2,6 +2,8 @@ package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.ProductNotFoundException;
 import com.spring.demo.models.Product;
+
+import com.spring.demo.models.Tags;
 import com.spring.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +43,6 @@ public class ProductController {
         }
     }
 
-
     @PostMapping("/create")
     public Product createProduct(@RequestBody Product prod){
         repo.save(prod);
@@ -50,6 +51,22 @@ public class ProductController {
 
     @PutMapping("/edit")
     public Product editProduct(@RequestBody Product prod){
+        repo.save(prod);
+        return prod;
+    }
+
+    @PutMapping ("/addTag")
+    public Product addTagToProduct(@RequestParam String id, @RequestBody Tags tag){
+        var prod = repo.findById(id).get();
+        prod.appendTag(tag);
+        repo.save(prod);
+        return prod;
+    }
+
+    @PutMapping("/removeTag")
+    public Product removeTagFromProduct(@RequestParam String id, @RequestBody Tags tag){
+        var prod = repo.findById(id).get();
+        prod.removeTag(tag);
         repo.save(prod);
         return prod;
     }
