@@ -3,9 +3,9 @@ package com.spring.demo.controllers;
 import com.spring.demo.exceptions.EmployeeNotFoundException;
 import com.spring.demo.exceptions.UserNotFoundException;
 import com.spring.demo.models.ShoppingCart;
-import com.spring.demo.models.User;
 import com.spring.demo.repositories.ShoppingCartRepository;
 import com.spring.demo.repositories.UserRepository;
+import com.spring.demo.models.User;
 import com.spring.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +55,7 @@ public class UserController {
         User user = userOpt.get();
         return user.getName();
     }
-
+  
     @PostMapping("/create")
     public User postUser(@RequestBody User user){
         ShoppingCart cart = UserService.createCart(user);
