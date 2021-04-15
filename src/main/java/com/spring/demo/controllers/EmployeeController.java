@@ -1,6 +1,7 @@
 package com.spring.demo.controllers;
 
 import com.spring.demo.exceptions.EmployeeNotFoundException;
+import com.spring.demo.exceptions.UserNotFoundException;
 import com.spring.demo.models.Employee;
 import com.spring.demo.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class EmployeeController {
             return repo.getEmployeeByName(name);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new UserNotFoundException("name" + name);
+            throw new EmployeeNotFoundException("name" + name);
         }
     }
 

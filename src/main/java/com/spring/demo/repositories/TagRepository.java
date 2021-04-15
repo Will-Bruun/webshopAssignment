@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface TagRepository extends CrudRepository<Tag, String> {
 
-    @Query(value = "SELECT tag from Tags tag where tag.tag like %?1")
+    @Query(value = "SELECT tag from Tag tag where tag.tag like %?1")
     Optional<Tag> getTagByName(String tagName);
 
-    @Query(value = "SELECT tag from Tags tag where tag.products like %?")
-    List<Product> getProductsByTag(String tagName);
+    @Query(value = "SELECT tag from Tag tag where tag.products like %?1")
+    List<Product> getProductsByTag(Tag tagName);
 }

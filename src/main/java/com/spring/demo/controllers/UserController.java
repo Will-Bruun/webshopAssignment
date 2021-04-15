@@ -73,7 +73,7 @@ public class UserController {
             userRepo.save(user);
             return user;
         } else {
-            throw new EmployeeNotFoundException(user.getId());
+            throw new UserNotFoundException(user.getId());
         }
     }
 
