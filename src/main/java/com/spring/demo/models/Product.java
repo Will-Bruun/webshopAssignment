@@ -52,14 +52,6 @@ public class Product {
         return tags;
     }
 
-    public void appendTag(Tag tag){
-        this.tags.add(tag);
-    }
-
-    public void removeTag(Tag tag) {
-        this.tags.remove(tag);
-    }
-
     public Manufacturer getManufacturer() {
         return manufacturer;
     }

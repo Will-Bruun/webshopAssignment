@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,6 +31,23 @@ public class EmployeeController {
     public Iterable<Employee> getAllEmployees(){
         var userOpt = repo.findAll();
         return userOpt;
+    }
+
+    @GetMapping("/searchByName")
+    public List<Employee> searchProduct(@RequestParam String name) {
+        try {
+            return repo.getEmployeeByName(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UserNotFoundException("name" + name);
+        }
+    }
+
+    @GetMapping("/getName")
+    public String getNameById(@RequestParam String id){
+        var userOpt = repo.findById(id);
+        Employee employee = userOpt.get();
+        return employee.getName();
     }
 
     @PostMapping("/create")

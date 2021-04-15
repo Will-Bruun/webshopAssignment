@@ -1,6 +1,7 @@
 package com.spring.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,6 +29,7 @@ public class Employee {
     private String field;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Shipment> shipment;
 
     public String getField() {
